@@ -1,0 +1,9 @@
+<svg width="400" height="200" viewBox="0 0 400 200" fill="none" xmlns="http://www.w3.org/2000/svg">
+<g opacity="0.5">
+<mask id="path-1-inside-1_9_78" fill="white">
+<rect x="400" y="200" width="400" height="200" rx="4.02418" transform="rotate(180 400 200)"/>
+</mask>
+<rect x="400" y="200" width="400" height="200" rx="4.02418" transform="rotate(180 400 200)" stroke="#008FFB" stroke-width="10.7311" stroke-linejoin="bevel" stroke-dasharray="5.37 5.37" mask="url(#path-1-inside-1_9_78)"/>
+</g>
+<path d="M182.667 121.333C181.6 121.333 180.667 120.933 179.867 120.133C179.067 119.333 178.667 118.4 178.667 117.333V107.8H182.667V117.333H217.333V107.8H221.333V117.333C221.333 118.4 220.933 119.333 220.133 120.133C219.333 120.933 218.4 121.333 217.333 121.333H182.667ZM198 111.133V86.4L190 94.4L187.133 91.5334L200 78.6667L212.867 91.5334L210 94.4L202 86.4V111.133H198Z" fill="#008FFB"/>
+</svg>
