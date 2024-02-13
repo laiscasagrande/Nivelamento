@@ -10,7 +10,7 @@ h1{
 }
 `;
 
-export const Upload=styled.div`
+export const Upload=styled.form`
 display: flex;
 justify-content: center;
 padding: 10rem 0;

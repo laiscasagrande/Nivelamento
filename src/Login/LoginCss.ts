@@ -17,7 +17,7 @@ height: 54.5rem;
 
 `;
 
-export const Menu = styled.div`
+export const Menu = styled.form`
 padding: 0 6rem; 
 font-family: Montserrat;
 

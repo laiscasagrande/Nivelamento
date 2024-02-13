@@ -1,16 +1,28 @@
-import {  useState } from "react";
-import { Header, Buttons, Upload } from "./UploadImagemCss";
+import { ChangeEvent, useState } from "react";
 import Drop from "../assets/Dropzone.svg";
-//import { UploadContext } from "../Context/Context";
-//import {Carousel} from "../Carousel/Carousel"
-//import Dropzone from "react-dropzone";
+import { api } from "../services/axios";
+import { Buttons, Header, Upload } from "./UploadImagemCss";
 
 export default function UploadImagem() {
- // const { getFile, file } = useContext(UploadContext);
-  const [file, setFile] = useState();
-  function getFile(event: Event) {
-   // setFile(URL.createObjectURL(event.target.files[0]));
-  }
+  const [file, setFile] = useState<File | null>(null); //serve para indicar que file pode ser uma imagem ou nula
+
+  const handleFileChange = (event: ChangeEvent<HTMLInputElement>) => { //tipagem para o input
+    if (!event.target.files) return; //
+    setFile(event.target.files[0]);
+  };
+
+  const handleUpload = async () => {
+    try {
+      if (!file) return; //caso nao encontre, criara uma imagem de forma dinamica
+      const formData = new FormData();
+      formData.append("file", file);
+      const response = await api.post("/image/upload", formData); //enviará para o servidor o formData, que é a imagem buscada
+      // navigate("/table");
+      console.log("Imagem enviada com sucesso!", response.data);
+    } catch (error) {
+      console.error("Erro ao enviar a imagem para o servidor:", error);
+    }
+  };
 
   return (
     <>
@@ -24,10 +36,10 @@ export default function UploadImagem() {
             accept="image/*"
             className="picture-input"
             id="picture-input"
-            onChange={ (event) =>  setFile(URL.createObjectURL(event.target.files[0]))}
-          ></input>
+            onChange={handleFileChange}
+          />
           {file ? (
-            <img src={file} id="file" />
+            <img src={URL.createObjectURL(file)} id="file" /> //buscar a URL da imagem
           ) : (
             <img src={Drop} alt="" id="dropzone" />
           )}
@@ -35,7 +47,9 @@ export default function UploadImagem() {
       </Upload>
       <Buttons>
         <div>
-          <button id="register">Cadastrar</button>
+          <button id="register" onClick={handleUpload}>
+            Cadastrar
+          </button>
         </div>
         <button id="cancel">Cancelar</button>
       </Buttons>

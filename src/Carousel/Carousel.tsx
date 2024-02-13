@@ -34,17 +34,17 @@ export function Carousel() {
   getPosts();
   
   /* ************************************************************************************************************** */
-  // const data = [
-  //   {
-  //     id: "1",
-  //     image:
-  //       "https://img.freepik.com/fotos-gratis/a-beleza-tranquila-da-natureza-refletida-na-ia-geradora-de-aguas-calmas_188544-12798.jpg?w=996&t=st=1707325045~exp=1707325645~hmac=853e7f8da17cc9abfe6fc966c2b5acb4f2e22cc6abd86454586976c860fb325e",
-  //   },
-  //   {
-  //     id: "2",
-  //     image:
-  //       "https://img.freepik.com/fotos-gratis/pico-majestoso-da-montanha-refletido-na-ia-geradora-de-agua-azul-fluindo_188544-12739.jpg?w=1380&t=st=1707325907~exp=1707326507~hmac=270aaf35d83a575c127b8c62a7cbc8d8037aa50a953b35ca096fbb9531370613",
-  //   },
+   const data = [
+   {
+     id: "1",
+     image:
+       "https://img.freepik.com/fotos-gratis/a-beleza-tranquila-da-natureza-refletida-na-ia-geradora-de-aguas-calmas_188544-12798.jpg?w=996&t=st=1707325045~exp=1707325645~hmac=853e7f8da17cc9abfe6fc966c2b5acb4f2e22cc6abd86454586976c860fb325e",
+   },
+   {
+      id: "2",
+     image:
+        "https://img.freepik.com/fotos-gratis/pico-majestoso-da-montanha-refletido-na-ia-geradora-de-agua-azul-fluindo_188544-12739.jpg?w=1380&t=st=1707325907~exp=1707326507~hmac=270aaf35d83a575c127b8c62a7cbc8d8037aa50a953b35ca096fbb9531370613",
+    },
   //   {
   //     id: "3",
   //     image:
@@ -54,7 +54,7 @@ export function Carousel() {
   //     id: "",
   //     image: "",
   //   },
-  // ];
+  ];
 
   useEffect(() => {
     //criar um efeito colateral
