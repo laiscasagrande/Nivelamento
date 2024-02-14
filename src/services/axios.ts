@@ -4,7 +4,7 @@ export function createApiRequest() {
   const token = localStorage.getItem("token");
 
   const api = axios.create({ //variável para o axios 
-    baseURL: "http://paris:3000",
+    baseURL: "http://paris:3000"
   });
 
   if (!token) return api;
