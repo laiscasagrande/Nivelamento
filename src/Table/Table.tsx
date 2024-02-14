@@ -63,9 +63,20 @@ export function Table() {
 
   const [isOpenModal, setIsOpenModal] = useState(false); //um modal sempre começa false
 
-  function openModal() {
+
+  const openModal = async (id) => {
+    try {
+      const imageData = await SelectImage(id);
+      setSelectedImage(imageData);
+      setIsOpenModal(true);
+    } catch (error) {
+      console.error("Erro ao abrir modal:", error);
+    }
+  };
+
+  /*function openModal() {
     setIsOpenModal(true);
-  }
+  }*/
 
   function closeModal() {
     setIsOpenModal(false);
@@ -132,11 +143,21 @@ export function Table() {
         </>
       </Tabela>
 
-      <ModalComponent isOpen={isOpenModal} closeModal={closeModal}>
-     <img src={}></img>
+      <ModalComponent isOpen={isOpenModal} closeModal={closeModal} selectedImage={selectedImage} >
+  {selectedImage && (
+    <div>
+      <img src={selectedImage.url} alt={selectedImage.description} />
+      <button onClick={closeModal}>Sair</button>
+    </div>
+  )}
+</ModalComponent>
 
-        <button onClick={closeModal}>sair</button>
-      </ModalComponent>
+
+{/*<ModalComponent isOpen={isOpenModal} closeModal={closeModal} imageData={SelectImage}  >
+       
+       <button onClick={closeModal}>sair</button>
+  </ModalComponent>*/}
+
     </>
   );
 }
