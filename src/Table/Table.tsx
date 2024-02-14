@@ -1,13 +1,15 @@
-import { Navbar, Sessione, Tabela, Upload } from "./TableCss";
 import { NavLink } from "react-router-dom";
+import Delete from "../assets/Delete.png";
 import Left from "../assets/Left.png";
 import Right from "../assets/Rigth.svg";
 import View from "../assets/View.png";
-import Delete from "../assets/Delete.png";
-import { Modal } from "../Modal/Modal";
+import { Navbar, Sessione, Tabela, Upload } from "./TableCss";
+//import { Modal } from "../Modal/Modal";
 import { useEffect, useState } from "react";
 
 import { api } from "../services/axios";
+//import {ModalContainer, ModalContent, CloseButton,  } from "../Modal/ModalCss"
+import { ModalComponent } from "../Modal/Modal";
 
 type ImageProps = {
   id: string;
@@ -19,8 +21,10 @@ type ImageProps = {
 
 export function Table() {
   const [images, setImages] = useState<ImageProps[]>([]);
+  const [selectedImage, setSelectedImage] = useState("");
+  const [isModalOpen, setIsModalOpen] = useState(false);
 
-  useEffect(() => {  //cada vez que a página carregar, ele executará isso primeiro
+  useEffect(() => {
     getPosts();
   }, []);
 
@@ -34,7 +38,39 @@ export function Table() {
     }
   };
 
-  const [openModal, setOpenModal] = useState(false); //um modal sempre começa false
+  const deleteImages = async (id: string) => {
+    try {
+      const { data } = await api.delete<ImageProps[]>("/image/" + id);
+      // const deleted = images.filter((images) => images.id !== id);
+      // setImages(deleted);
+      getPosts();
+      return deleteImages;
+    } catch {
+      //
+    }
+  };
+
+  const SelectImage = async (id: string) => {
+    try {
+      const { data } = await api.get<ImageProps[]>(`/image/${id}/file`);
+      console.log(data);
+
+      return data;
+    } catch {
+      //
+    }
+  };
+
+  const [isOpenModal, setIsOpenModal] = useState(false); //um modal sempre começa false
+
+  function openModal() {
+    setIsOpenModal(true);
+  }
+
+  function closeModal() {
+    setIsOpenModal(false);
+  }
+
   return (
     <>
       <Sessione>
@@ -82,15 +118,11 @@ export function Table() {
                   <td>{data.sizekb}</td>
                   <td>{data.created}</td>
                   <td>
-                    <button
-                      onClick={() => {
-                        setOpenModal(true);
-                      }}
-                    >
+                    <button onClick={openModal} >
                       <img src={View} alt="" />
-                    </button>{" "}
+                    </button>
                     {/*quando o usuario clicar, vai mudar/setar para true*/}
-                    <button>
+                    <button onClick={() => deleteImages(data.id)}>
                       <img src={Delete} alt="" />
                     </button>
                   </td>
@@ -98,8 +130,13 @@ export function Table() {
               </table>
             ))}
         </>
-        <Modal isOpen={openModal} /> {/*aqui está como false*/}
       </Tabela>
+
+      <ModalComponent isOpen={isOpenModal} closeModal={closeModal}>
+     <img src={}></img>
+
+        <button onClick={closeModal}>sair</button>
+      </ModalComponent>
     </>
   );
 }

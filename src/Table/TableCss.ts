@@ -47,10 +47,12 @@ button:hover{
 
 export const Tabela=styled.div`
 
-display: flex;
+display: block;
+gap: 2rem;
 justify-content: center;
 margin: 5rem;
 font-family: Roboto;
+
 
 table, th, td {
   border: 1px solid black;
