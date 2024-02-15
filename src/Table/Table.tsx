@@ -1,4 +1,4 @@
-import { NavLink } from "react-router-dom";
+import { NavLink, useNavigate, useNavigation } from "react-router-dom";
 import Delete from "../assets/Delete.png";
 import Left from "../assets/Left.png";
 import Right from "../assets/Rigth.svg";
@@ -21,8 +21,10 @@ type ImageProps = {
 
 export function Table() {
   const [images, setImages] = useState<ImageProps[]>([]);
-  const [selectedImage, setSelectedImage] = useState("");
-  const [isModalOpen, setIsModalOpen] = useState(false);
+//const [selectedImage, setSelectedImage] = useState("");
+ // const [isModalOpen, setIsModalOpen] = useState(false);
+ //const navigate = useNavigate()
+ //const [selectedImage, setSelectedImage] = useState<string | null>(null); // Estado para armazenar a URL da imagem selecionada
 
   useEffect(() => {
     getPosts();
@@ -50,7 +52,32 @@ export function Table() {
     }
   };
 
-  const SelectImage = async (id: string) => {
+  const ViewImage = async (id: any) => {
+try{
+  const { data } = await api.get<ImageProps[]>(`/image/${id}/file`);
+  console.log(data);
+  openModal()
+ // navigate(`/view/${id}`)
+}catch{
+
+}
+  }
+
+  /*const ViewImage = async (id: string) => {
+    try {
+      const { data } = await api.get<ImageProps[]>(`/image/${id}/file`);
+      console.log(data);
+      if (data && data.length > 0) {
+        // Se houver uma imagem retornada pela API
+        setSelectedImage(data[0].image); // Define a URL da imagem selecionada no estado
+        openModal(); // Abre o modal após carregar a imagem
+      }
+    } catch (error) {
+      console.error("Erro ao carregar a imagem:", error);
+    }
+  };*/ 
+
+ /* const SelectImage = async (id: string) => {
     try {
       const { data } = await api.get<ImageProps[]>(`/image/${id}/file`);
       console.log(data);
@@ -59,12 +86,12 @@ export function Table() {
     } catch {
       //
     }
-  };
+  };*/
 
   const [isOpenModal, setIsOpenModal] = useState(false); //um modal sempre começa false
 
 
-  const openModal = async (id) => {
+ /* const openModal = async (id) => {
     try {
       const imageData = await SelectImage(id);
       setSelectedImage(imageData);
@@ -72,15 +99,18 @@ export function Table() {
     } catch (error) {
       console.error("Erro ao abrir modal:", error);
     }
-  };
+  };*/
 
-  /*function openModal() {
+  function openModal() {
     setIsOpenModal(true);
-  }*/
+  }
 
   function closeModal() {
     setIsOpenModal(false);
   }
+
+//<button onClick={() => ViewImage(data.id)}> {/* Chama ViewImage com o ID da imagem */}
+                  //  <img src={View} alt="" />
 
   return (
     <>
@@ -129,7 +159,7 @@ export function Table() {
                   <td>{data.sizekb}</td>
                   <td>{data.created}</td>
                   <td>
-                    <button onClick={openModal} >
+                    <button onClick={ViewImage} >
                       <img src={View} alt="" />
                     </button>
                     {/*quando o usuario clicar, vai mudar/setar para true*/}
@@ -143,20 +173,20 @@ export function Table() {
         </>
       </Tabela>
 
-      <ModalComponent isOpen={isOpenModal} closeModal={closeModal} selectedImage={selectedImage} >
+   {/*   <ModalComponent isOpen={isOpenModal} closeModal={closeModal} selectedImage={selectedImage} >
   {selectedImage && (
     <div>
       <img src={selectedImage.url} alt={selectedImage.description} />
       <button onClick={closeModal}>Sair</button>
     </div>
   )}
-</ModalComponent>
-
-
-{/*<ModalComponent isOpen={isOpenModal} closeModal={closeModal} imageData={SelectImage}  >
-       
-       <button onClick={closeModal}>sair</button>
   </ModalComponent>*/}
+
+
+<ModalComponent isOpen={isOpenModal} closeModal={closeModal}   >
+      
+       <button onClick={closeModal}>sair</button>
+  </ModalComponent>
 
     </>
   );
