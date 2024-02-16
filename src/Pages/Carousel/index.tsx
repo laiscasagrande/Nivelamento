@@ -1,28 +1,28 @@
-import { Container, Navbar, Sessione } from "./CarouselCss";
-import { register } from "swiper/element/bundle";
+import { Container, Navbar, Sessione } from "./styles";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { EffectCoverflow } from "swiper/modules";
-import Left from "../assets/Left.png";
-import Right from "../assets/Rigth.svg";
+import Left from "../../assets/images/Left.png";
+import Right from "../../assets/icons/Rigth.svg";
 import { NavLink } from "react-router-dom";
 
-import { api } from "../services/axios";
+import { api } from "../../services/axios";
 
-register();
 import "swiper/css";
 import "swiper/css/navigation";
 import "swiper/css/pagination";
 import "swiper/css/scrollbar";
 import "swiper/css/effect-fade";
 import { useState, useEffect } from "react";
+import { Header } from "../../Header/header";
 
 type ImageProps = {
-  id: string,
-  image: string,
+  id: string;
+  image: string;
+  B64file: string;
 };
 
 export function Carousel() {
-  const [slidePerView, setslidePerView] = useState(1);
+  const [slidePerView, setSlidePerView] = useState(1);
 
   const [images, setImages] = useState<ImageProps[]>([]);
 
@@ -31,46 +31,15 @@ export function Carousel() {
     getPosts();
   }, []);
 
-  const getPosts = async () => {
-    try {
-      const { data } = await api.get<ImageProps[]>("/image"); //api que foi definida no outro coponente, .get e a rota definida pelo back end para imagens
-      console.log(data);
-      setImages(data);
-    } catch (erro) {
-      //e colocar a resposta aqui. Resposta de erro, caso tenha
-    }
-  };
-
-  const data = [
-    {
-      id: {images},
-      image: { images },
-    },
-    // {
-    //  id: "2",
-    //   image:
-    // "",
-    //  },
-    //   {
-    //     id: "3",
-    //     image:
-    //       "https://img.freepik.com/fotos-gratis/cenario-de-tirar-o-folego-do-parco-naturale-di-fanes-sennes-braies-prags-italia_181624-17935.jpg?w=1380&t=st=1707325798~exp=1707326398~hmac=6d21a5ea224703f93b0808088d1b786f7690dd3fc150427f84ef2b5a9c18ffce",
-    //   },
-    //   {
-    //     id: "",
-    //     image: "",
-    //   },
-  ];
-
   useEffect(() => {
     //criar um efeito colateral
 
     function handleResize() {
       if (window.innerWidth < 720) {
         //se a largura da janela for menor que 720
-        setslidePerView(1); //mudar o usestate que tava de 2 para 1 slide
+        setSlidePerView(1); //mudar o usestate que tava de 2 para 1 slide
       } else {
-        setslidePerView(2); //se nao for menor que 720, vai ser 2
+        setSlidePerView(2); //se nao for menor que 720, vai ser 2
       }
     }
 
@@ -84,12 +53,19 @@ export function Carousel() {
     };
   }, []);
 
+  const getPosts = async () => {
+    try {
+      const { data } = await api.get<ImageProps[]>("/image"); //api que foi definida no outro coponente, .get e a rota definida pelo back end para imagens
+      setImages(data);
+    } catch (erro) {
+      //e colocar a resposta aqui. Resposta de erro, caso tenha
+    }
+  };
+
   return (
     <>
       <Sessione>
-        <NavLink to="/" title="">
-          <button>Encerrar sessão</button>
-        </NavLink>
+        <Header />
       </Sessione>
       <Navbar>
         <h1>Carrossel</h1>
@@ -117,9 +93,7 @@ export function Carousel() {
             ) => (
               <SwiperSlide key={item.id}>
                 <img
-                  src=
-                   {item.image}
-                  
+                  src={`data:image/jpeg;base64,${item.B64file}`}
                   alt="Slider"
                   className="slide-item"
                 />

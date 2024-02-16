@@ -93,3 +93,12 @@ button{
     cursor: pointer;
 }
 `;
+export const ModalImage=styled.img`
+.modal-image{
+    max-width: 100%; /* imagem ocupa toda a largura do modal */
+  max-height: 100%; /* imagem ocupa toda a altura do modal */
+  display: block; /* necessário para centralizar a imagem horizontalmente */
+  margin: 0 auto; /* centraliza a imagem horizontalmente */
+}
+
+`;

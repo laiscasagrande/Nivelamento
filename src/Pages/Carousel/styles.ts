@@ -23,7 +23,6 @@ h1{
     padding: 0 32rem 0 0;
 }
 `; 
-
 export const Sessione=styled.div`
 padding: 1rem 0 0 85rem;
 

@@ -1,17 +1,19 @@
 import { ChangeEvent, useState } from "react"; //changevent serve para lidar com estados
-import Drop from "../assets/Dropzone.svg";
-import { api } from "../services/axios";
-import { Buttons, Header, Upload } from "./UploadImagemCss";
+import Drop from "../../assets/icons/Dropzone.svg";
+import { api } from "../../services/axios";
+import { Buttons, Header, Upload } from "./styles";
 
 export default function UploadImagem() {
   const [file, setFile] = useState<File | null>(null); //serve para indicar que file pode ser uma imagem ou nula. Pode ser do tipo file ou null. Guardar a imgem armazenada pelo usuário
 
-  const handleFileChange = (event: ChangeEvent<HTMLInputElement>) => { //função para lidar com mudanças no input. Tipagem do evento
+  const handleFileChange = (event: ChangeEvent<HTMLInputElement>) => {
+    //função para lidar com mudanças no input. Tipagem do evento
     if (!event.target.files) return; //
     setFile(event.target.files[0]);
   };
 
-  const handleUpload = async () => { //função assíncrona que é disparada quando o botão de cadastrar é clicado
+  const handleUpload = async () => {
+    //função assíncrona que é disparada quando o botão de cadastrar é clicado
     try {
       if (!file) return; //ele verifica se não há arquivo selecionado, se já houver, retorna sem fazer nada
       const formData = new FormData(); //objeto para armazenar os dados do arquivo

@@ -1,8 +1,8 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom";
-import { DoLogin } from "./Login/DoLogin";
-import { Carousel } from "./Carousel/Carousel";
-import { Table } from "./Table/Table";
-import UploadImagem from "./Upload/UploadImagem";
+import { DoLogin } from "../Pages/Login";
+import { Carousel } from "../Pages/Carousel";
+import { Table } from "../Pages/Table";
+import UploadImagem from "../Pages/Upload";
 
 
 export function RouterProvider() {

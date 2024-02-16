@@ -22,6 +22,7 @@ export function ModalComponent({
       bottom: "auto",
       marginRight: "-50%",
       transform: "translate(-50%, -50%)",
+      
     },
   };
 

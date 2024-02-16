@@ -1,5 +1,5 @@
 import { GlobalStyle } from "./Global";
-import { RouterProvider } from "./Router";
+import { RouterProvider } from "./Router/Router";
 
 export function App() {
 
